@@ -15,7 +15,7 @@ unittest：用于编写单元测试，确保功能的完整性和正确性。
 克隆项目：
 bash
 深色版本
-git clone https://github.com/yourusername/carbon-footprint-calculator.git
+git clone https://github.com/muafei/carbon-footprint-calculator.git
 cd carbon-footprint-calculator
 安装依赖：
 bash
@@ -24,18 +24,15 @@ pip install -r requirements.txt
 运行程序：
 bash
 深色版本
-python main.py --energy "electricity:100 natural_gas:50" --materials "aluminium:20 steel:30" --intermediates "steel_sheets:50 aluminium_foil:10"
-其中，--energy, --materials, 和 --intermediates 分别接受能源、原材料和中间产品的名称及消耗量，格式为资源名:数量，多个资源之间用空格分隔。
+python app.py
 配置文件
-data.json 文件包含预定义的碳排放系数，按照能源、原材料和中间产品分类。
+carbon_footprint_config.json 文件包含预定义的碳排放系数，按照能源、原材料和中间产品分类。
+material_ratios.json 中间产品构成。
 单元测试
 单元测试test.py，使用 unittest 模块编写。
 运行测试：
-bash
-深色版本
-python -m unittest discover tests
+网页打开UI.html
 贡献指南
 欢迎贡献者参与项目改进！如果发现bug或有功能改进建议，请提交issue或pull request。
 
-版权与许可
-本项目遵循 MIT 许可证。更多细节请参见 LICENSE 文件。
+
