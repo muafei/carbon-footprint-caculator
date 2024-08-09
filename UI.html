@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Carbon Emissions Calculator</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<h1>Carbon Emissions Calculator</h1>
+
+<form id="emissionForm">
+    <h2>Energy Sources</h2>
+    <label for="electricity">Electricity (kWh):</label>
+    <input type="number" name="electricity" id="electricity" required><br>
+
+    <label for="natural_gas">Natural Gas (m³):</label>
+    <input type="number" name="natural_gas" id="natural_gas" required><br>
+
+    <h2>Raw Materials</h2>
+    <label for="aluminium">Aluminium (kg):</label>
+    <input type="number" name="aluminium" id="aluminium" required><br>
+
+    <label for="steel">Steel (kg):</label>
+    <input type="number" name="steel" id="steel" required><br>
+
+    <h2>Intermediate Products</h2>
+    <label for="steel_sheets">Steel Sheets (kg):</label>
+    <input type="number" name="steel_sheets" id="steel_sheets" required><br>
+
+    <label for="aluminium_foil">Aluminium Foil (kg):</label>
+    <input type="number" name="aluminium_foil" id="aluminium_foil" required><br>
+
+    <button type="submit">Calculate Emissions</button>
+</form>
+
+<div id="result"></div>
+
+<script>
+$(document).ready(function() {
+    $('#emissionForm').on('submit', function(event) {
+        event.preventDefault();
+        const formData = $(this).serializeArray();
+        const data = {
+            energy_sources: {
+                electricity: parseFloat($('#electricity').val()),
+                natural_gas: parseFloat($('#natural_gas').val())
+            },
+            raw_materials: {
+                aluminium: parseFloat($('#aluminium').val()),
+                steel: parseFloat($('#steel').val())
+            },
+            intermediate_products: {
+                steel_sheets: parseFloat($('#steel_sheets').val()),
+                aluminium_foil: parseFloat($('#aluminium_foil').val())
+            }
+        };
+        $.each(formData, function(index, field) {
+            data[field.name] = parseFloat(field.value);
+        });
+
+        // 使用绝对URL
+        const url = 'http://localhost:5000/calculate_emissions';
+        $.ajax({
+            url: url,
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function(response) {
+                let output = '';
+                output += '<h3>计算结果：</h3>';
+                let total = 0;
+                // Display individual emission sources
+                for (let resource in response) {
+                    if (resource !== 'total') {
+                        output += `<p>${resource}：${response[resource].toFixed(2)} kg CO₂e</p>`;
+                        total += response[resource];
+                    }
+                }
+
+                // Display total emission
+                output += '<h3>总碳排放量：</h3>';
+                output += `<p>总计：${response.total.toFixed(2)} kg CO₂e</p>`;
+
+                // Display the equivalent number of trees and people
+                output += '<h3>等效：</h3>';
+                output += `<p>假设每棵树每年可以吸收21kg CO₂,相当于：${response.tree_equivalent.toFixed(2)} 棵树木每年吸收</p>`;
+                output += `<p>假设人均每天碳排放量10.1kg CO₂,相当于：${response.person_equivalent.toFixed(2)} 人天排放</p>`;
+
+                $('#result').html(output);
+            },
+            error: function(error) {
+                console.error('Error:', error);
+                console.error('Error response text:', error.responseText);
+            }
+        });
+    });
+});
+</script>
+
+</body>
+</html>

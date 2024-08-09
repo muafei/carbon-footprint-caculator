@@ -1,0 +1,22 @@
+{
+    "steel_sheets": {"steel": 1.0},
+    "aluminium_foil": {"aluminium": 1.0},
+    "copper_wire": {"copper": 1.0},
+    "plastic_pellets": {"plastic": 1.0},
+    "chemical_precursors": {"chemicals": 1.0},
+    "fabric_rolls": {"textiles": 1.0},
+    "glass_sheets": {"glass": 1.0},
+    "plywood_panels": {"wood": 1.0},
+    "paints_coatings": {"petroleum": 0.5, "chemicals": 0.5},
+    "adhesives": {"chemicals": 1.0},
+    "electronic_components": {"copper": 0.25, "gold": 0.05, "plastic": 0.3, "glass": 0.4},
+    "engineered_fibers": {"textiles": 0.6, "chemicals": 0.4},
+    "insulating_materials": {"glass": 0.5, "plastics": 0.5},
+    "lubricants": {"petroleum": 1.0},
+    "seals_gaskets": {"rubber": 1.0},
+    "fasteners": {"steel": 0.5, "aluminium": 0.5},
+    "valves_fittings": {"steel": 0.6, "brass": 0.4},
+    "batteries": {"lead": 0.3, "nickel": 0.1, "plastics": 0.6},
+    "heat_exchangers": {"copper": 0.5, "steel": 0.5},
+    "catalysts": {"chemicals": 1.0}
+}
